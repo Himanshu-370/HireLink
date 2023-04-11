@@ -88,7 +88,7 @@ const App = () => {
           newJobModal={newJobModal}
           postJob={postJob}
         />
-        <ViewJobModal job={viewJob} closeModal={setViewJob({})} />
+        <ViewJobModal job={viewJob} closeModal={() => setViewJob({})} />
         <Box mb={3}>
           <Grid container justifyContent="center">
             <Grid item xs={10}>
