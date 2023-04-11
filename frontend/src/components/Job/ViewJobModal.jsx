@@ -61,7 +61,7 @@ const ViewJobModal = (props) => {
             </Typography>
           </Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Posted On: </Typography>
+            <Typography variant="caption">Job Type: </Typography>
             <Typography variant="body2">{props.job.type}</Typography>
           </Box>
           <Box className={classes.info} display="flex">

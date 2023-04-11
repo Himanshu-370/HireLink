@@ -11,6 +11,7 @@ import {
   DialogActions,
   Button,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -32,10 +33,10 @@ const useStyles = makeStyles({
       backgroundColor: "#0B0B15",
       color: "#fff",
     },
-    included: {
-      backgroundColor: "#0B0B15",
-      color: "#fff",
-    },
+  },
+  included: {
+    backgroundColor: "#0B0B15",
+    color: "#fff",
   },
 });
 
@@ -57,7 +58,7 @@ const NewJobModal = (props) => {
   const [jobDetails, setJobDetails] = useState(initState);
 
   const handleChange = (e) => {
-    e.persist();
+    e.preventDefault();
     setJobDetails((oldState) => {
       return { ...oldState, [e.target.name]: e.target.value };
     });
@@ -92,7 +93,7 @@ const NewJobModal = (props) => {
 
   const skills = ["React", "Node", "MongoDB", "Express", "Python", "Django"];
 
-//   console.log(jobDetails);
+  //   console.log(jobDetails);
 
   return (
     <Dialog open={props.newJobModal} fullWidth>
@@ -158,6 +159,7 @@ const NewJobModal = (props) => {
           </Grid>
           <Grid item xs={6}>
             <Select
+              onChange={handleChange}
               name="location"
               value={jobDetails.location}
               disableUnderline
