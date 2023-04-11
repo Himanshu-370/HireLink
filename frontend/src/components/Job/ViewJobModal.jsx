@@ -19,7 +19,7 @@ import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   info: {
-    "&>*": {
+    "& > *": {
       margin: "4px",
     },
   },
@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ViewJobModal = (props) => {
   const classes = useStyles();
+  // const keys = Object.keys(props.job);
+  // console.log(keys);
+
   return (
     <Dialog open={!!Object.keys(props.job).length} fullWidth>
       <DialogTitle>
@@ -79,12 +82,14 @@ const ViewJobModal = (props) => {
           </Box>
           <Box ml={0.5}>
             <Typography variant="caption">Skills: </Typography>
-            {props.job.skills &&
-              props.job.skills.map((skill) => (
-                <Grid item key={skill} className={classes.skillChip}>
-                  {skill}
-                </Grid>
-              ))}
+            <Grid container alignItems="center">
+              {props.job.skills &&
+                props.job.skills.map((skill) => (
+                  <Grid item key={skill} className={classes.skillChip} m={0.5}>
+                    {skill}
+                  </Grid>
+                ))}
+            </Grid>
           </Box>
         </Box>
       </DialogContent>

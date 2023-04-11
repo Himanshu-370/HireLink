@@ -110,7 +110,7 @@ const App = () => {
                   {jobs.map((job) => {
                     return (
                       <JobCard
-                        open={() => setViewJob()}
+                        open={() => setViewJob(job)}
                         key={job.id}
                         {...job}
                       />
