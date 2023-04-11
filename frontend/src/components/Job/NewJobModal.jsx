@@ -75,9 +75,12 @@ const NewJobModal = (props) => {
         }));
 
   const handleSubmit = async () => {
+    for (const field in jobDetails) {
+      if (jobDetails[field] === "string" && !jobDetails[field]) return;
+    }
+    if (!jobDetails.skills.length) return;
     setLoading(true);
     await props.postJob(jobDetails);
-    // setLoading(false);
     closeModal();
   };
 
@@ -89,7 +92,7 @@ const NewJobModal = (props) => {
 
   const skills = ["React", "Node", "MongoDB", "Express", "Python", "Django"];
 
-  console.log(jobDetails);
+//   console.log(jobDetails);
 
   return (
     <Dialog open={props.newJobModal} fullWidth>
@@ -112,6 +115,7 @@ const NewJobModal = (props) => {
               placeholder="Job Title *"
               disableUnderline
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={6}>
@@ -137,6 +141,7 @@ const NewJobModal = (props) => {
               placeholder="Company Name *"
               disableUnderline
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={6}>
@@ -148,6 +153,7 @@ const NewJobModal = (props) => {
               placeholder="Company Url *"
               disableUnderline
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={6}>
@@ -171,6 +177,7 @@ const NewJobModal = (props) => {
               placeholder="Job link *"
               disableUnderline
               fullWidth
+              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -183,6 +190,7 @@ const NewJobModal = (props) => {
               disableUnderline
               fullWidth
               multiline
+              required
               rows={4}
             />
           </Grid>

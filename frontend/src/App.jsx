@@ -5,6 +5,7 @@ import {
   CssBaseline,
   Grid,
   CircularProgress,
+  Button,
 } from "@material-ui/core";
 import theme from "./theme/theme";
 import Header from "./components/Header/Header";
@@ -19,16 +20,43 @@ import {
   getDocs,
   addDoc,
   serverTimestamp,
+  where,
 } from "firebase/firestore";
+import { Close as CloseIcon } from "@mui/icons-material";
+import ViewJobModal from "./components/Job/ViewJobModal";
 
 const App = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [customSearch, setCustomSearch] = useState(false);
   const [newJobModal, setNewJobModal] = useState(false);
+  const [viewJob, setViewJob] = useState({});
 
   const fetchJobs = async () => {
+    setCustomSearch(false);
+    setLoading(true);
     const jobsCollection = collection(firestoredb, "jobs");
     const jobsQuery = query(jobsCollection, orderBy("postedOn", "desc"));
+    const querySnapshot = await getDocs(jobsQuery);
+    const data = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      postedOn: doc.data().postedOn.toDate(),
+    }));
+    setJobs(data);
+    setLoading(false);
+  };
+
+  const fetchJobsCustom = async (jobSearch) => {
+    setLoading(true);
+    setCustomSearch(true);
+    const jobsCollection = collection(firestoredb, "jobs");
+    const jobsQuery = query(
+      jobsCollection,
+      where("location", "==", jobSearch.location),
+      where("type", "==", jobSearch.type),
+      orderBy("postedOn", "desc")
+    );
     const querySnapshot = await getDocs(jobsQuery);
     const data = querySnapshot.docs.map((doc) => ({
       ...doc.data(),
@@ -60,20 +88,39 @@ const App = () => {
           newJobModal={newJobModal}
           postJob={postJob}
         />
-        <Grid container justifyContent="center">
-          <Grid item xs={10}>
-            <SearchBar />
-            {loading ? (
-              <Box display="flex" justifyContent="center">
-                <CircularProgress />
-              </Box>
-            ) : (
-              jobs.map((job) => {
-                return <JobCard key={job.id} {...job} />;
-              })
-            )}
+        <ViewJobModal job={viewJob} closeModal={setViewJob({})} />
+        <Box mb={3}>
+          <Grid container justifyContent="center">
+            <Grid item xs={10}>
+              <SearchBar fetchJobsCustom={fetchJobsCustom} />
+              {loading ? (
+                <Box display="flex" justifyContent="center">
+                  <CircularProgress />
+                </Box>
+              ) : (
+                <>
+                  {customSearch && (
+                    <Box my={2} display="flex" justifyContent="flex-end">
+                      <Button onClick={fetchJobs}>
+                        <CloseIcon size={20} />
+                        Custom Search
+                      </Button>
+                    </Box>
+                  )}
+                  {jobs.map((job) => {
+                    return (
+                      <JobCard
+                        open={() => setViewJob()}
+                        key={job.id}
+                        {...job}
+                      />
+                    );
+                  })}
+                </>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </CssBaseline>
     </ThemeProvider>
   );
