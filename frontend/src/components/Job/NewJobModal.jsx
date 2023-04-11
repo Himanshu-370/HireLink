@@ -199,7 +199,7 @@ const NewJobModal = (props) => {
         </Grid>
         <Box mt={2}>
           <Typography>Skills</Typography>
-          <Box display="flex">
+          <Box display="flex" flexWrap="wrap">
             {skills.map((skill) => (
               <Box
                 onClick={() => addRemoveSkill(skill)}

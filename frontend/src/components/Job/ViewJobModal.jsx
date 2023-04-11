@@ -82,7 +82,7 @@ const ViewJobModal = (props) => {
           </Box>
           <Box ml={0.5}>
             <Typography variant="caption">Skills: </Typography>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" display="flex" flexWrap="wrap">
               {props.job.skills &&
                 props.job.skills.map((skill) => (
                   <Grid item key={skill} className={classes.skillChip} m={0.5}>
