@@ -30,13 +30,12 @@ const CompanyName = styled(Typography)(({ theme }) => ({
 }));
 
 const SkillChip = styled(Chip)(({ theme }) => ({
-  margin: "4px",
+  margin: "2px",
   padding: "6px",
-  fontSize: "14.5px",
   borderRadius: "5px",
   transition: "0.3s",
   fontWeight: 600,
-  backgroundColor: "#0B0B15",
+  backgroundColor: "#333",
   color: "#fff",
 }));
 
@@ -70,7 +69,7 @@ const JobCard = (props) => {
         <Grid item container direction="column" alignItems="flex-end" xs>
           <Grid item>
             <Typography variant="caption">
-              {format(props.postedOn, "dd/MM/yyyy HH:mm")} | {props.type} |{" "}
+              {format(props.postedOn, "dd/MM/yyyy")} | {props.type} |{" "}
               {props.location}
             </Typography>
           </Grid>

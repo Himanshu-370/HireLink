@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   skillChip: {
-    margin: "4px",
+    // margin: "4px",
     padding: "6px",
-    fontSize: "14.5px",
+    // fontSize: "14.5px",
     borderRadius: "5px",
     transition: "0.3s",
     // cursor: "pointer",
-    fontWeight: 600,
-    backgroundColor: "#0B0B15",
+    // fontWeight: 600,
+    backgroundColor: "#333",
     color: "#fff",
   },
 }));

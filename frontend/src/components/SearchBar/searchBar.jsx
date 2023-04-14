@@ -55,7 +55,7 @@ const SearchBar = (props) => {
       >
         <MenuItem value="Full time">Full time</MenuItem>
         <MenuItem value="Part time">Part time</MenuItem>
-        <MenuItem value="Contract">Contract</MenuItem>
+        <MenuItem value="Internship">Internship</MenuItem>
       </Select>
       <Select
         onChange={handleChange}

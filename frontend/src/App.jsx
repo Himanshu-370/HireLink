@@ -6,6 +6,7 @@ import {
   Grid,
   CircularProgress,
   Button,
+  Typography,
 } from "@material-ui/core";
 import theme from "./theme/theme";
 import Header from "./components/Header/Header";
@@ -111,15 +112,19 @@ const App = () => {
                       </Button>
                     </Box>
                   )}
-                  {jobs.map((job) => {
-                    return (
+                  {jobs.length > 0 ? (
+                    jobs.map((job) => (
                       <JobCard
                         open={() => setViewJob(job)}
                         key={job.id}
                         {...job}
                       />
-                    );
-                  })}
+                    ))
+                  ) : (
+                    <Box my={3} display="flex" justifyContent="center">
+                      <Typography variant="h6">No jobs found</Typography>
+                    </Box>
+                  )}
                 </>
               )}
             </Grid>
