@@ -1,21 +1,27 @@
 import React, { useState } from "react";
+import styled from "@mui/material/styles/styled";
 import { Box, Button, Select, MenuItem, CircularProgress } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
-  wrapper: {
-    backgroundColor: "#fff",
-    display: "flex",
-    boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
-    alignItems: "center",
-    borderRadius: "5px",
-    "& > *": {
-      flex: 1,
-      margin: "8px",
-      height: "45px",
-    },
+const Wrapper = styled(Box)(({ theme }) => ({
+  backgroundColor: "#fff",
+  display: "flex",
+  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+  alignItems: "center",
+  borderRadius: "5px",
+  "& > *": {
+    flex: 1,
+    margin: "8px",
+    height: "45px",
   },
-});
+}));
+
+const SearchButton = styled(Button)(({ theme }) => ({
+  backgroundColor: "#3c8dbc",
+  color: "#fff",
+  "&:hover": {
+    backgroundColor: "#367fa9",
+  },
+}));
 
 const SearchBar = (props) => {
   const [loading, setLoading] = useState(false);
@@ -31,17 +37,14 @@ const SearchBar = (props) => {
     });
   };
 
-  // console.log(jobSearch);
   const search = async () => {
     setLoading(true);
     await props.fetchJobsCustom(jobSearch);
     setLoading(false);
   };
 
-  const classes = useStyles();
-
   return (
-    <Box p={2} mt={-5} className={classes.wrapper}>
+    <Wrapper p={2}>
       <Select
         onChange={handleChange}
         value={jobSearch.type}
@@ -65,16 +68,15 @@ const SearchBar = (props) => {
         <MenuItem value="Remote">Remote</MenuItem>
         <MenuItem value="In-office">In-office</MenuItem>
       </Select>
-      <Button
+      <SearchButton
         disabled={loading}
         variant="contained"
-        color="primary"
         disableElevation
         onClick={search}
       >
         {loading ? <CircularProgress color="secondary" size={22} /> : "Search"}
-      </Button>
-    </Box>
+      </SearchButton>
+    </Wrapper>
   );
 };
 

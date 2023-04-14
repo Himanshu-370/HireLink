@@ -11,6 +11,7 @@ import {
   DialogActions,
   Button,
   IconButton,
+  styled,
 } from "@mui/material";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -41,6 +42,14 @@ const ViewJobModal = (props) => {
   // const keys = Object.keys(props.job);
   // console.log(keys);
 
+  const StyledButton = styled(Button)({
+    backgroundColor: "#3c8dbc",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#367fa9",
+    },
+  });
+
   return (
     <Dialog open={!!Object.keys(props.job).length} fullWidth>
       <DialogTitle>
@@ -54,34 +63,41 @@ const ViewJobModal = (props) => {
       <DialogContent>
         <Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Posted On: </Typography>
+            <Typography variant="subtitle">Posted On: </Typography>
             <Typography variant="body2">
               {props.job.postedOn &&
                 format(props.job.postedOn, "dd/MM/yyyy HH:MM")}
             </Typography>
           </Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Job Type: </Typography>
+            <Typography variant="subtitle">Job Type: </Typography>
             <Typography variant="body2">{props.job.type}</Typography>
           </Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Job location: </Typography>
+            <Typography variant="subtitle">Job location: </Typography>
             <Typography variant="body2">{props.job.location}</Typography>
           </Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Job Description: </Typography>
+            <Typography variant="subtitle">Job Description: </Typography>
             <Typography variant="body2">{props.job.description}</Typography>
           </Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Company Name: </Typography>
+            <Typography variant="subtitle">Company Name: </Typography>
             <Typography variant="body2">{props.job.companyName}</Typography>
           </Box>
           <Box className={classes.info} display="flex">
-            <Typography variant="caption">Company Url: </Typography>
-            <Typography variant="body2">{props.job.companyUrl}</Typography>
+            <Typography variant="subtitle">Company Url: </Typography>
+            <Typography
+              variant="body2"
+              component="a"
+              href={props.job.companyUrl}
+              target="_blank"
+            >
+              {props.job.companyUrl}
+            </Typography>
           </Box>
           <Box ml={0.5}>
-            <Typography variant="caption">Skills: </Typography>
+            <Typography variant="subtitle">Skills: </Typography>
             <Grid container alignItems="center" display="flex" flexWrap="wrap">
               {props.job.skills &&
                 props.job.skills.map((skill) => (
@@ -94,14 +110,14 @@ const ViewJobModal = (props) => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button
+        <StyledButton
           variant="outlined"
           component="a"
           href={props.job.link}
           target="_blank"
         >
           Apply
-        </Button>
+        </StyledButton>
       </DialogActions>
     </Dialog>
   );

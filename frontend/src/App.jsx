@@ -90,7 +90,11 @@ const App = () => {
         />
         <ViewJobModal job={viewJob} closeModal={() => setViewJob({})} />
         <Box mb={3}>
-          <Grid container justifyContent="center">
+          <Grid
+            container
+            justifyContent="center"
+            style={{ backgroundColor: "#ecf0f5" }}
+          >
             <Grid item xs={10}>
               <SearchBar fetchJobsCustom={fetchJobsCustom} />
               {loading ? (

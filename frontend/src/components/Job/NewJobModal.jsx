@@ -12,6 +12,7 @@ import {
   Button,
   IconButton,
   CircularProgress,
+  styled,
 } from "@mui/material";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -91,7 +92,50 @@ const NewJobModal = (props) => {
     props.closeModal();
   };
 
-  const skills = ["React", "Node", "MongoDB", "Express", "Python", "Django"];
+  const skills = [
+    "React",
+    "Node",
+    "MongoDB",
+    "Express",
+    "Python",
+    "Django",
+    "HTML",
+    "CSS",
+    "Material UI",
+    "Go",
+    "TypeScript",
+    "JavaScript",
+    "Java",
+    "C++",
+    "C",
+    "C#",
+    "Ruby",
+    "Ruby on Rails",
+    "PHP",
+    "Swift",
+    "Kotlin",
+    "Rust",
+    "Dart",
+    "Flutter",
+    "SQL",
+    "NoSQL",
+    "Firebase",
+    "AWS",
+    "GCP",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "Git",
+    "Linux",
+  ];
+
+  const StyledButton = styled(Button)({
+    backgroundColor: "#3c8dbc",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#367fa9",
+    },
+  });
 
   //   console.log(jobDetails);
 
@@ -224,7 +268,7 @@ const NewJobModal = (props) => {
           m={1}
         >
           <Typography variant="caption">*Required Fields</Typography>
-          <Button
+          <StyledButton
             onClick={handleSubmit}
             variant="contained"
             disableElevation
@@ -236,7 +280,7 @@ const NewJobModal = (props) => {
             ) : (
               "Post Job"
             )}
-          </Button>
+          </StyledButton>
         </Box>
       </DialogActions>
     </Dialog>

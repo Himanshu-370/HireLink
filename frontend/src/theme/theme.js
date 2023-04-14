@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const primary = "#18E1D9";
 const secondary = "#0B0B15";
+const button = "#3c8dbc";
 
 const theme = createTheme({
   typography: {
@@ -13,6 +14,9 @@ const theme = createTheme({
     },
     secondary: {
       main: secondary,
+    },
+    button: {
+      main: button,
     },
   },
   components: {
@@ -28,12 +32,12 @@ const theme = createTheme({
         root: {
           fontWeight: 600,
           textTransform: "none",
-          color: secondary,
+          color: button,
           padding: "6px 24px",
         },
         outlined: {
           borderRadius: "35px",
-          borderColor: secondary,
+          borderColor: button,
           padding: "6px 20px",
         },
       },
