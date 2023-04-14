@@ -88,7 +88,7 @@ const JobCard = (props) => {
           <Grid item>
             <Typography variant="caption" onChange={handleChange}>
               {format(props.postedOn, "dd/MM/yyyy")} | {props.type} |
-              {location || "Remote"}
+              {props.location}
             </Typography>
           </Grid>
 
