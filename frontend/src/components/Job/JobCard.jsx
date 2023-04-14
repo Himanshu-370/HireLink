@@ -41,11 +41,29 @@ const SkillChip = styled(Chip)(({ theme }) => ({
 
 const JobCard = (props) => {
   const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState("");
 
   const handleCheck = async () => {
     setLoading(true);
     await props.open();
     setLoading(false);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "location" && value === "In-office") {
+      setShowLocationInput(true);
+    } else {
+      setShowLocationInput(false);
+    }
+    setJobDetails((prev) => ({ ...prev, [name]: value }));
+    if (name === "location" && value !== "Remote") {
+      setLocation(value);
+    } else {
+      setLocation("");
+    }
+
+    console.log(value);
   };
 
   return (
@@ -68,11 +86,12 @@ const JobCard = (props) => {
         </Grid>
         <Grid item container direction="column" alignItems="flex-end" xs>
           <Grid item>
-            <Typography variant="caption">
-              {format(props.postedOn, "dd/MM/yyyy")} | {props.type} |{" "}
-              {props.location}
+            <Typography variant="caption" onChange={handleChange}>
+              {format(props.postedOn, "dd/MM/yyyy")} | {props.type} |
+              {location || "Remote"}
             </Typography>
           </Grid>
+
           <Grid item>
             <Box mt={2}>
               <Button
@@ -90,7 +109,7 @@ const JobCard = (props) => {
                 {loading ? (
                   <CircularProgress color="secondary" size={22} />
                 ) : (
-                  "Check"
+                  "Read More"
                 )}
               </Button>
             </Box>

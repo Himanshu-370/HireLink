@@ -62,33 +62,33 @@ const ViewJobModal = (props) => {
       </DialogTitle>
       <DialogContent>
         <Box>
-          <Box className={classes.info} display="flex">
-            <Typography variant="subtitle">Posted On: </Typography>
-            <Typography variant="body2">
+          <Box className={classes.info} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Posted On: </Typography>
+            <Typography variant="body1">
               {props.job.postedOn &&
                 format(props.job.postedOn, "dd/MM/yyyy HH:MM")}
             </Typography>
           </Box>
-          <Box className={classes.info} display="flex">
-            <Typography variant="subtitle">Job Type: </Typography>
-            <Typography variant="body2">{props.job.type}</Typography>
+          <Box className={classes.info} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Job Type: </Typography>
+            <Typography variant="body1">{props.job.type}</Typography>
           </Box>
-          <Box className={classes.info} display="flex">
-            <Typography variant="subtitle">Job location: </Typography>
-            <Typography variant="body2">{props.job.location}</Typography>
+          <Box className={classes.info} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Job location: </Typography>
+            <Typography variant="body1">{props.job.location}</Typography>
           </Box>
-          <Box className={classes.info} display="flex">
-            <Typography variant="subtitle">Job Description: </Typography>
-            <Typography variant="body2">{props.job.description}</Typography>
+          <Box className={classes.info} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Job Description: </Typography>
+            <Typography variant="body1">{props.job.description}</Typography>
           </Box>
-          <Box className={classes.info} display="flex">
-            <Typography variant="subtitle">Company Name: </Typography>
-            <Typography variant="body2">{props.job.companyName}</Typography>
+          <Box className={classes.info} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Company Name: </Typography>
+            <Typography variant="body1">{props.job.companyName}</Typography>
           </Box>
-          <Box className={classes.info} display="flex">
-            <Typography variant="subtitle">Company Url: </Typography>
+          <Box className={classes.info} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Company Url: </Typography>
             <Typography
-              variant="body2"
+              variant="body1"
               component="a"
               href={props.job.companyUrl}
               target="_blank"
@@ -97,7 +97,7 @@ const ViewJobModal = (props) => {
             </Typography>
           </Box>
           <Box ml={0.5}>
-            <Typography variant="subtitle">Skills: </Typography>
+            <Typography variant="subtitle1">Skills: </Typography>
             <Grid container alignItems="center" display="flex" flexWrap="wrap">
               {props.job.skills &&
                 props.job.skills.map((skill) => (

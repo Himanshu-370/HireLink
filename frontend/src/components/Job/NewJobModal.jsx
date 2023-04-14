@@ -137,8 +137,6 @@ const NewJobModal = (props) => {
     },
   });
 
-  //   console.log(jobDetails);
-
   return (
     <Dialog open={props.newJobModal} fullWidth>
       <DialogTitle>
@@ -174,7 +172,7 @@ const NewJobModal = (props) => {
             >
               <MenuItem value="Full time">Full time</MenuItem>
               <MenuItem value="Part time">Part time</MenuItem>
-              <MenuItem value="Contract">Contract</MenuItem>
+              <MenuItem value="Internship">Internship</MenuItem>
             </Select>
           </Grid>
           <Grid item xs={6}>
@@ -214,6 +212,22 @@ const NewJobModal = (props) => {
               <MenuItem value="In-office">In-office</MenuItem>
             </Select>
           </Grid>
+
+          {jobDetails.location === "In-office" && (
+            <Grid item xs={6}>
+              <FilledInput
+                label="Location"
+                name="locationDetails"
+                value={jobDetails.locationDetails}
+                variant="filled"
+                placeholder="Enter the location"
+                fullWidth
+                disableUnderline
+                required
+              />
+            </Grid>
+          )}
+
           <Grid item xs={6}>
             <FilledInput
               onChange={handleChange}
