@@ -73,9 +73,22 @@ const ViewJobModal = (props) => {
             <Typography variant="subtitle1">Job Type: </Typography>
             <Typography variant="body1">{props.job.type}</Typography>
           </Box>
+          {props.job.locationDetails ? (
+            <Box className={classes.info} display="flex" alignItems="center">
+              <Typography variant="subtitle1">Job location: </Typography>
+              <Typography variant="body1">
+                {props.job.locationDetails}
+              </Typography>
+            </Box>
+          ) : (
+            <Box className={classes.info} display="flex" alignItems="center">
+              <Typography variant="subtitle1">Job location: </Typography>
+              <Typography variant="body1">{props.job.location}</Typography>
+            </Box>
+          )}
           <Box className={classes.info} display="flex" alignItems="center">
-            <Typography variant="subtitle1">Job location: </Typography>
-            <Typography variant="body1">{props.job.location}</Typography>
+            <Typography variant="subtitle1">Job Eligibility: </Typography>
+            <Typography variant="body1">{props.job.eligibility}</Typography>
           </Box>
           <Box className={classes.info} display="flex" alignItems="center">
             <Typography variant="subtitle1">Job Description: </Typography>
@@ -95,17 +108,6 @@ const ViewJobModal = (props) => {
             >
               {props.job.companyUrl}
             </Typography>
-          </Box>
-          <Box ml={0.5}>
-            <Typography variant="subtitle1">Skills: </Typography>
-            <Grid container alignItems="center" display="flex" flexWrap="wrap">
-              {props.job.skills &&
-                props.job.skills.map((skill) => (
-                  <Grid item key={skill} className={classes.skillChip} m={0.5}>
-                    {skill}
-                  </Grid>
-                ))}
-            </Grid>
           </Box>
         </Box>
       </DialogContent>

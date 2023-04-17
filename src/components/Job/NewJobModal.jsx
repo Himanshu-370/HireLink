@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -47,9 +47,10 @@ const initState = {
   companyName: "",
   companyUrl: "",
   location: "Remote",
+  locationDetails: "",
+  eligibility: "",
   link: "",
   description: "",
-  skills: [],
 };
 
 const NewJobModal = (props) => {
@@ -65,22 +66,14 @@ const NewJobModal = (props) => {
     });
   };
 
-  const addRemoveSkill = (skill) =>
-    jobDetails.skills.includes(skill)
-      ? setJobDetails((oldState) => ({
-          ...oldState,
-          skills: oldState.skills.filter((item) => item !== skill),
-        }))
-      : setJobDetails((oldState) => ({
-          ...oldState,
-          skills: oldState.skills.concat(skill),
-        }));
+  useEffect(() => {
+    console.log(jobDetails)
+  }, [jobDetails])
 
   const handleSubmit = async () => {
     for (const field in jobDetails) {
       if (jobDetails[field] === "string" && !jobDetails[field]) return;
     }
-    if (!jobDetails.skills.length) return;
     setLoading(true);
     await props.postJob(jobDetails);
     closeModal();
@@ -91,43 +84,6 @@ const NewJobModal = (props) => {
     setLoading(false);
     props.closeModal();
   };
-
-  const skills = [
-    "React",
-    "Node",
-    "MongoDB",
-    "Express",
-    "Python",
-    "Django",
-    "HTML",
-    "CSS",
-    "Material UI",
-    "Go",
-    "TypeScript",
-    "JavaScript",
-    "Java",
-    "C++",
-    "C",
-    "C#",
-    "Ruby",
-    "Ruby on Rails",
-    "PHP",
-    "Swift",
-    "Kotlin",
-    "Rust",
-    "Dart",
-    "Flutter",
-    "SQL",
-    "NoSQL",
-    "Firebase",
-    "AWS",
-    "GCP",
-    "Azure",
-    "Docker",
-    "Kubernetes",
-    "Git",
-    "Linux",
-  ];
 
   const StyledButton = styled(Button)({
     backgroundColor: "#3c8dbc",
@@ -213,7 +169,7 @@ const NewJobModal = (props) => {
             </Select>
           </Grid>
 
-          {jobDetails.location === "In-office" && (
+          {/* {jobDetails.location == "In-office" && (
             <Grid item xs={6}>
               <FilledInput
                 label="Location"
@@ -226,7 +182,34 @@ const NewJobModal = (props) => {
                 required
               />
             </Grid>
-          )}
+          )} */}
+          <Grid item xs={6}>
+            <FilledInput
+              label="Location"
+              name="locationDetails"
+              value={jobDetails.locationDetails}
+              onChange={handleChange}
+              variant="filled"
+              placeholder="Enter the location"
+              fullWidth
+              disableUnderline
+              required
+              disabled={jobDetails.location !== "In-office"} // disable the input field if location is not "In-office"
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <FilledInput
+              onChange={handleChange}
+              name="eligibility"
+              value={jobDetails.eligibility}
+              autoComplete="off"
+              placeholder="Eligibility *"
+              disableUnderline
+              fullWidth
+              required
+            />
+          </Grid>
 
           <Grid item xs={6}>
             <FilledInput
@@ -255,22 +238,6 @@ const NewJobModal = (props) => {
             />
           </Grid>
         </Grid>
-        <Box mt={2}>
-          <Typography>Skills</Typography>
-          <Box display="flex" flexWrap="wrap">
-            {skills.map((skill) => (
-              <Box
-                onClick={() => addRemoveSkill(skill)}
-                className={`${classes.skillChip} ${
-                  jobDetails.skills.includes(skill) && classes.included
-                } `}
-                key={skill}
-              >
-                {skill}
-              </Box>
-            ))}
-          </Box>
-        </Box>
       </DialogContent>
       <DialogActions>
         <Box

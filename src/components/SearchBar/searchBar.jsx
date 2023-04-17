@@ -8,6 +8,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
   alignItems: "center",
   borderRadius: "5px",
+  marginTop: "16px",
   "& > *": {
     flex: 1,
     margin: "8px",
@@ -52,6 +53,11 @@ const SearchBar = (props) => {
         disableUnderline
         variant="filled"
         defaultValue="Full time"
+        sx={{
+          "& .MuiSelect-select": {
+            padding: 2,
+          },
+        }}
       >
         <MenuItem value="Full time">Full time</MenuItem>
         <MenuItem value="Part time">Part time</MenuItem>
@@ -64,6 +70,11 @@ const SearchBar = (props) => {
         disableUnderline
         variant="filled"
         defaultValue="Remote"
+        sx={{
+          "& .MuiSelect-select": {
+            padding: 2,
+          },
+        }}
       >
         <MenuItem value="Remote">Remote</MenuItem>
         <MenuItem value="In-office">In-office</MenuItem>

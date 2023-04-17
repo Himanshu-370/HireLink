@@ -22,6 +22,8 @@ import {
   addDoc,
   serverTimestamp,
   where,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 import { Close as CloseIcon } from "@mui/icons-material";
 import ViewJobModal from "./components/Job/ViewJobModal";
@@ -55,6 +57,7 @@ const App = () => {
     const jobsQuery = query(
       jobsCollection,
       where("location", "==", jobSearch.location),
+      where("locationDetails", "==", jobSearch.locationDetails),
       where("type", "==", jobSearch.type),
       orderBy("postedOn", "desc")
     );
@@ -71,9 +74,21 @@ const App = () => {
   const postJob = async (jobDetails) => {
     await addDoc(collection(firestoredb, "jobs"), {
       ...jobDetails,
+      locationDetails: "",
       postedOn: serverTimestamp(),
     });
     fetchJobs();
+  };
+
+  const deleteJob = async (jobId) => {
+    try {
+      const jobRef = doc(firestoredb, "jobs", jobId);
+      await deleteDoc(jobRef);
+      console.log(`Job with ID ${jobId} has been deleted`);
+      fetchJobs();
+    } catch (error) {
+      console.error(`Error deleting job with ID ${jobId}:`, error);
+    }
   };
 
   useEffect(() => {
@@ -116,6 +131,7 @@ const App = () => {
                     jobs.map((job) => (
                       <JobCard
                         open={() => setViewJob(job)}
+                        deleteJob={deleteJob}
                         key={job.id}
                         {...job}
                       />

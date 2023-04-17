@@ -7,9 +7,11 @@ import {
   Chip,
   Autocomplete,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { format, differenceInMinutes } from "date-fns";
+import { format } from "date-fns";
+import { Delete as DeleteIcon } from "@mui/icons-material";
 
 const Wrapper = styled(Box)(({ theme }) => ({
   border: "1px solid #e8e8e8",
@@ -27,16 +29,6 @@ const CompanyName = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   display: "inline-block",
   margin: "4px",
-}));
-
-const SkillChip = styled(Chip)(({ theme }) => ({
-  margin: "2px",
-  padding: "6px",
-  borderRadius: "5px",
-  transition: "0.3s",
-  fontWeight: 600,
-  backgroundColor: "#333",
-  color: "#fff",
 }));
 
 const JobCard = (props) => {
@@ -59,15 +51,21 @@ const JobCard = (props) => {
     setJobDetails((prev) => ({ ...prev, [name]: value }));
     if (name === "location" && value !== "Remote") {
       setLocation(value);
+      setLocationDetails("");
     } else {
       setLocation("");
+      setLocationDetails("");
     }
 
     console.log(value);
   };
 
+  const handleDelete = () => {
+    props.deleteJob(props.id);
+  };
+
   return (
-    <Wrapper p={2} mt={2}>
+    <Wrapper p={2} mt={2} mb={2}>
       <Grid container alignItems="center">
         <Grid item xs>
           <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
@@ -77,19 +75,25 @@ const JobCard = (props) => {
             {props.companyName}
           </CompanyName>
         </Grid>
-        <Grid item container xs>
-          {props.skills.map((skill) => (
-            <Grid key={skill} m={0.2} item>
-              <SkillChip label={skill} />
-            </Grid>
-          ))}
-        </Grid>
+        {props.eligibility && (
+          <Grid item container xs>
+            <Typography variant="subtitle2">
+              Eligibility: {props.eligibility}
+            </Typography>
+          </Grid>
+        )}
         <Grid item container direction="column" alignItems="flex-end" xs>
           <Grid item>
             <Typography variant="caption" onChange={handleChange}>
-              {format(props.postedOn, "dd/MM/yyyy")} | {props.type} |
-              {props.location}
+              {format(props.postedOn, "dd/MM/yyyy")} | {props.type}
             </Typography>
+            {props.locationDetails ? (
+              <Typography variant="caption">
+                | {props.locationDetails}
+              </Typography>
+            ) : (
+              <Typography variant="caption">| {props.location}</Typography>
+            )}
           </Grid>
 
           <Grid item>
@@ -100,6 +104,7 @@ const JobCard = (props) => {
                 sx={{
                   backgroundColor: "#3c8dbc",
                   color: "#fff",
+                  marginRight: "10px",
                   "&:hover": {
                     backgroundColor: "#367fa9",
                   },
@@ -112,6 +117,9 @@ const JobCard = (props) => {
                   "Read More"
                 )}
               </Button>
+              <IconButton aria-label="delete" onClick={handleDelete}>
+                <DeleteIcon />
+              </IconButton>
             </Box>
           </Grid>
         </Grid>
